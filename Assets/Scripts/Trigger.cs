@@ -2,15 +2,37 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject InteractGo;
+    IInteract InteractObj;
+    private Player player;
+
+
     void Start()
     {
-        
+        InteractObj = InteractGo.GetComponent<IInteract>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.tag == "Player")
+        {
+            if (other.gameObject.TryGetComponent<Player>(out Player player))
+            {
+                player.InteractObj = InteractObj;
+            }
+
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (player.InteractObj == InteractObj)
+            {
+                player.InteractObj = null;
+            }
+
+        }
     }
 }
