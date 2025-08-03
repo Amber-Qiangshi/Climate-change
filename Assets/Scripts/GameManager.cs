@@ -1,16 +1,28 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static GameManager instance;
+    
+    void Awake()
     {
-        
+        if(instance == null)    instance = this;
+         else Destroy(gameObject);
+        diamond.text = diamondCount.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public TMP_Text diamond;
+    public float progress;
+    public Slider slider;
+    
+    private int diamondCount = 0;
+    public void GetDiamond(int i)
     {
-        
+        diamondCount += i;
+        diamond.text = diamondCount.ToString();
     }
+    
 }

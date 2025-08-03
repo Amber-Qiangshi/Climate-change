@@ -27,7 +27,8 @@ public class Trigger : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
-        {
+        {	
+if(player == null) return;
             if (player.InteractObj == InteractObj)
             {
                 player.InteractObj = null;

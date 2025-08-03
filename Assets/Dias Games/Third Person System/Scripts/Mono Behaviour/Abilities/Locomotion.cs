@@ -11,7 +11,7 @@ namespace DiasGames.Abilities
     public class Locomotion : AbstractAbility
     {
         [SerializeField] private float walkSpeed = 2f;
-        [SerializeField] private float sprintSpeed = 5.3f;
+        [SerializeField] public float sprintSpeed = 5.3f;
         [Tooltip("Determine how to use extra key button to handle movement. If shift is hold, tells system if it should walk, run, or do nothing")]
         [SerializeField] private MovementStyle movementByKey = MovementStyle.HoldToWalk;
         [SerializeField] private string groundedAnimBlendState = "Grounded";
