@@ -29,17 +29,34 @@ public class Player : MonoBehaviour
         }
 
         locomotion.sprintSpeed = Mathf.Lerp(locomotion.sprintSpeed, targetSpeed, Time.deltaTime * 5f);
+        
+        
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            if (GameManager.instance.UseCleaner())
+            {
+                ShootCleaner();
+            }
+        }
+
+    }
+
+    public GameObject cleanerPrefab;
+    public void ShootCleaner()
+    {
+        Instantiate(cleanerPrefab, transform.position +Vector3.up *1.5f, Quaternion.identity).GetComponent<Cleaner>().direction = Camera.main.transform.forward;
     }
 
     public void PickUp(Transform obj)
     {
         if (PickUpObj != null) PickUpObj.GetComponent<Box>().Drop();
 
+        obj.GetComponent<Collider>().enabled = false;
         obj.GetComponent<Rigidbody>().isKinematic = true;
         PickUpObj = obj;
-        obj.position = Box.position + offset;
+        obj.transform.SetParent(Box);
+        obj.position = transform.position + offset;
         obj.rotation = Box.rotation;
-        obj.parent = Box;
     }
 
     public void GetSlowDown(float speed, float time)
